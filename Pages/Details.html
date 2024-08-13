@@ -1,0 +1,87 @@
+<section>
+  <div class="container">
+    <form class="row g-3 needs-validation" id="formDetails" novalidate>
+
+      <div class="col-md-6" hidden>
+        <dt for="idDetails" class="form-label">Actividad No.</dt>
+        <input type="text" class="form-control input-value" placeholder="" id="idDetails" name="idDetails" value="" readonly/>
+      </div>
+      <div class="col-md-6">
+        <dt for="descriptionDetails" class="form-label">Descripción de la actividad</dt>
+        <input type="text" class="form-control input-value" placeholder="" id="descriptionDetails" name="descriptionDetails" value="" disabled />
+      </div>
+      <div class="col-md-6">
+        <dt for="employmentLevelDetails" class="form-label">Nivel del empleo</dt>
+        <input type="text" class="form-control input-value" placeholder="" id="employmentLevelDetails" name="employmentLevelDetails" value="" disabled />
+      </div>
+      <div class="col-md-6">
+        <dt for="daysPerMonthDetails" class="form-label">Días trabajados al mes</dt>
+        <input type="text" class="form-control input-value" placeholder="" id="daysPerMonthDetails" name="daysPerMonthDetails" value="" disabled />
+      </div>
+      <div class="col-md-6">
+        <dt for="hoursPerMonthDetails" class="form-label">Horas laborales al mes</dt>
+        <input type="text" class="form-control input-value" placeholder="" id="hoursPerMonthDetails" name="hoursPerMonthDetails" value="" disabled />
+      </div>
+      <div class="col-md-6">
+        <dt for="averageDetails" class="form-label">Promedio que se repite la actividad</dt>
+        <input type="text" class="form-control input-value" placeholder="3" id="averageDetails" name="averageDetails" value="" />
+      </div>
+
+      <div class="col-md-6">
+        <dt for="periodicityDetails" class="form-label">Frecuencia</dt>
+        <select class="form-select input-value" id="periodicityDetails" name="periodicityDetails" required>
+                            <option selected disabled value="">Seleccione...</option>
+                            <option value="Diario">Diario</option>
+                            <option value="Semanal">Semanal</option>
+                            <option value="Mensual">Mensual</option>
+                            <option value="Bimestral">Bimestral</option>
+                            <option value="Trimestral">Trimestral</option>
+                            <option value="Semestral">Semestral</option>
+                            <option value="Anual">Anual</option>
+                            <option value="Eventual">Eventual</option>
+                        </select>
+      </div>
+      <div class="col-md-6">
+        <dt for="averageEventualDetails" class="form-label">Periodo para actividad eventual (Años)</dt>
+        <input type="text" class="form-control input-value" placeholder="" id="averageEventualDetails" name="averageEventualDetails" value="" disabled />
+      </div>
+      <div class="col-md-6">
+        <dt for="monthlyActivityDetails" class="form-label">Cantidad de veces que se repite la tarea al mes</dt>
+        <input type="text" class="form-control input-value" placeholder="" id="monthlyActivityDetails" name="monthlyActivityDetails" value="" disabled />
+      </div>
+      <div class="col-md-6">
+        <dt for="timePerHourDetails" class="form-label">TIEMPO POR CADA ACTIVIDAD EN HORAS (TIEMPO ESTANDAR)</dt>
+        <input type="text" class="form-control input-value" placeholder="" id="timePerHourDetails" name="timePerHourDetails" value="" disabled />
+      </div>
+      <div class="col-md-6">
+        <dt for="totalTimeDetails" class="form-label">TIEMPO TOTAL EN HORAS HOMBRE EN EL MES DE CADA ACTIVIDAD</dt>
+        <input type="text" class="form-control input-value" placeholder="" id="totalTimeDetails" name="totalTimeDetails" value="" disabled />
+      </div>
+      <!-- <div class="col-md-6">
+        <dt for="totalPeopleDetails" class="form-label"># Personas que pueden ejecutala labor</dt>
+        <input type="text" class="form-control" placeholder="" id="totalPeopleDetails" name="totalPeopleDetails" value="" disabled />
+      </div> -->
+      <label for="floatingInput" class="text-center h4 mt-5">Tiempos de la actividad</label>
+      <div class="d-flex flex-row justify-content-center text-center mt-3">
+        <div class="col-3 mx-4">
+          <dt for="minimumTimeDetails" class="form-label">Duracion minima</dt>
+          <input type="text" class="form-control input-value" placeholder="Número en horas" id="minimumTimeDetails" name="minimumTimeDetails" value="" required />
+        </div>
+        <div class="col-3 mx-4">
+          <dt for="averageTimeDetails" class="form-label">Duracion promedio</dt>
+          <input type="text" class="form-control input-value" placeholder="Número en horas" id="averageTimeDetails" name="averageTimeDetails" value="" required />
+        </div>
+        <div class="col-3 mx-4">
+          <dt for="maximumTimeDetails" class="form-label">Duracion máxima</dt>
+          <input type="text" class="form-control input-value" placeholder="Número en horas" id="maximumTimeDetails" name="maximumTimeDetails" value="" required />
+        </div>
+      </div>
+    </form>
+    <div class="text-center mt-3">
+      <button class="btn btn-primary m-3" type="submit" onclick="searchModalDetails()" id="searchDetails">Buscar</button>
+      <button class="btn btn-primary m-3" type="submit" onclick="validateFormDetails()" id="guardar">Guardar/Actualizar</button>
+      <button class="btn btn-primary m-3" type="submit" hidden>Eliminar</button>
+      <button class="btn btn-primary m-3" type="submit" hidden>Actualizar</button>
+    </div>
+  </div>
+</section>

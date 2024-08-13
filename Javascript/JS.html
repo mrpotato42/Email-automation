@@ -1,0 +1,316 @@
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+<script>
+  /** Global access*/
+  window.addEventListener('load', loadInfoDataList);
+  window.addEventListener('load', loadInfoDetails);
+  const loadingModal = new bootstrap.Modal('#loadingModal', { focus: false});
+  document.getElementById('header-navbar').addEventListener('click', navbarClicked);
+  document.getElementById('formConversor').addEventListener('click', conversorActivate);
+
+  function conversorActivate(event){
+    if(event.target.matches('.form-control')){
+      console.log(event.target.id);
+      activateButton(event.target.id);
+      searchContent(event.target.id);
+    }
+  }
+
+  function validateFormDetails(){
+    const form = document.getElementById('formDetails');
+    // const id = form.identificador.value;
+
+    // console.log(form)
+    google.script.run
+    .updateInfoDetails(form);
+  }
+
+  function validateFormRegister(){
+    const form = document.getElementById('formRegister');
+    const id = form.identificador.value;
+
+    console.log(id);
+    if(id===''){
+      /** Create */
+      google.script.run
+      .addInfo(form);
+    }else{
+      /** Update */
+      google.script.run
+      .updateInfo(form);
+    }
+  }
+
+
+  /** Buttons  */
+  // function validateFormRegister(){
+  //   const form = document.getElementById('formRegister');
+  //   const id = form.identificador.value;
+  //   activatedLoading();
+
+  //   // console.log(id);
+  //   if(id===''){
+  //     /** Create */
+  //     google.script.run
+  //     .withSuccessHandler(contentHTML => {
+  //       desactivatedLoading();
+  //     })
+  //     .addInfo(form);
+  //   }else{
+  //     /** Update */
+  //     google.script.run
+  //     .withSuccessHandler(contentHTML => {
+  //       desactivatedLoading();
+  //     })
+  //     .updateInfo(form);
+  //   }
+  // }
+
+  // function validateFormDetails(){
+  //   const form = document.getElementById('formDetails');
+  //   // const id = form.identificador.value;
+  //   activatedLoading();
+  //   if(id===''){
+  //     return alert"Debe seleccionar un elemento para editar"
+  //   }
+  //   // console.log(form)
+  //   google.script.run
+  //   .withSuccessHandler(contentHTML => {
+  //       // document.getElementById('main-content').innerHTML = contentHTML;
+  //       desactivatedLoading();
+  //   })
+  //   .updateInfoDetails(form);
+  // }
+  
+  /** Functions to Register.html */
+  function activatedLoading(){
+    loadingModal.show();
+  }
+
+  function desactivatedLoading(){
+    loadingModal.hide();
+  }
+
+  function updateFormInfo(dtl){
+    const dtlFormInfo = document.getElementById('datalistOptions');
+
+    for (let i = 0; i < dtlFormInfo.options.length; i++){
+      if(dtlFormInfo.options[i].value === dtl.value){
+        document.getElementById('identificador').value = dtlFormInfo.options[i].getAttribute('data-identificador');
+        document.getElementById('dependencia').value = dtlFormInfo.options[i].getAttribute('data-dependencia');
+        document.getElementById('proceso').value = dtlFormInfo.options[i].getAttribute('data-proceso');
+        document.getElementById('procedimiento').value = dtlFormInfo.options[i].getAttribute('data-procedimiento');
+        document.getElementById('nombreManual').value = dtlFormInfo.options[i].getAttribute('data-nombre-Manual');
+        document.getElementById('etapa').value = dtlFormInfo.options[i].getAttribute('data-etapa');
+        document.getElementById('descripcion').value = dtlFormInfo.options[i].getAttribute('data-descripcion');
+        document.getElementById('nivelEmpleo').value = dtlFormInfo.options[i].getAttribute('data-nivel-Empleo');
+        document.getElementById('cargo').value = dtlFormInfo.options[i].getAttribute('data-cargo');
+        document.getElementById('responsableActividad').value = dtlFormInfo.options[i].getAttribute('data-responsable-Actividad');
+        document.getElementById('horasDia').value = dtlFormInfo.options[i].getAttribute('data-horas-Dia');
+        document.getElementById('diasSemana').value = dtlFormInfo.options[i].getAttribute('data-dias-Semana');
+        document.getElementById('observaciones').value = dtlFormInfo.options[i].getAttribute('data-observaciones');
+      }
+    }
+  }
+
+  function loadInfoDataList(){
+    // console.log('datalist')
+    google.script.run
+    .withSuccessHandler(loadDataList)
+    .getDataCualitatives()
+
+    function loadDataList(dataList){
+      // console.log(dataList)
+      const inputDataList = document.getElementById('datalistOptions');
+      dataList.forEach(data => {
+        const option = document.createElement('option');
+
+        /** Visualization props on datalist*/
+        option.value = data[9];
+        option.text = data[0]+ ', '+ data[5] + ', ' + data[2];
+
+        /** Dataset */
+        option.dataset.identificador = data[0];
+        option.dataset.dependencia = data[1];
+        option.dataset.proceso = data[2];
+        option.dataset.procedimiento = data[3];
+        option.dataset.nombreManual = data[4];
+        option.dataset.etapa = data[5];
+        option.dataset.descripcion = data[6];
+        option.dataset.nivelEmpleo = data[7];
+        option.dataset.cargo = data[8];
+        option.dataset.responsableActividad = data[9];
+        option.dataset.horasDia = data[10];
+        option.dataset.diasSemana = data[11];
+        option.dataset.observaciones = data[12];
+
+        inputDataList.appendChild(option);
+      })
+    }
+  }
+
+  function navbarClicked(event){
+    if(event.target.matches('.nav-link')){
+      activateButton(event.target.id);
+      searchContent(event.target.id);
+    }
+
+    function activateButton(id){
+      const navLinks = document.querySelectorAll('.nav-link');
+      navLinks.forEach(l => {
+        l.classList.remove('active');
+        l.classList.remove('not-active');
+      })
+      const activeNavLink = document.getElementById(id);
+      activeNavLink.classList.add('active');
+      activeNavLink.classList.add('not-active');
+    }
+
+    function searchContent(id){
+      activatedLoading();
+      google.script.run
+      .withSuccessHandler(contentHTML => {
+        document.getElementById('main-content').innerHTML = contentHTML;
+        desactivatedLoading();
+        
+      })
+      .getContentHTML(id);
+    }
+  }
+
+
+
+  function deleteDataModalRegister(button){
+    const form = document.getElementById('formRegister');
+    const id= form.identificador.value;
+
+    const deleteButton = document.getElementById('eliminar')
+
+    deleteButton.dataset.identificador = id;
+    const deleteModal = bootstrap.Modal.getOrCreateInstance('#deleteModal')
+    deleteModal.show()
+  }
+
+  function searchModalRegister(){
+    const form = document.getElementById('formRegister');
+    const id= form.identificador.value;
+    
+    const searchButton = document.getElementById('buscar')
+
+    searchButton.dataset.identificador = id;
+    const searchModal = bootstrap.Modal.getOrCreateInstance('#searchModal')
+    searchModal.show()
+  }
+
+  function clearId(){
+    const form = document.getElementById('formRegister');
+    form.removeAttribute('data-identificador');
+  }
+
+  function validateDelete(){
+    const form = document.getElementById('formRegister');
+    const id= form.identificador.value;
+    activatedLoading();
+
+    // console.log(form)
+
+    google.script.run
+    .withSuccessHandler(result => {
+      const form = document.getElementById('formRegister');
+      form.removeAttribute('data-identificador');
+      desactivatedLoading();
+    })
+    .deleteInfo(id);
+  }
+
+
+  /** Functions to Details.html */
+
+  function inpuntEvent(){
+    const formInputs = document.querySelectorAll('.input-value');
+    formInputs.forEach(input => {
+      input.addEventListener('change', onInputEvent);
+    })
+  }
+
+  function onInputEvent(e){
+    const info = {};
+    console.log(e.target.value);
+  }
+
+  function loadInfoDetails(){
+    // console.log('datalist')
+    google.script.run
+    .withSuccessHandler(loadInfo => {
+     loadDataListDetails(loadInfo);
+     inpuntEvent(); 
+    })
+    .getDataTimeActivity()
+
+    function loadDataListDetails(dataList){
+      console.log(dataList)
+      const inputDataList = document.getElementById('datalistDetailsOptions');
+      dataList.forEach(data => {
+        const option = document.createElement('option');
+
+        /** Visualization props on datalist*/
+        option.value = data[0];
+        option.text = data[1]+ ', '+ data[2];
+
+        /** Dataset */
+        option.dataset.idDetails = data[0];
+        option.dataset.descriptionDetails = data[1];
+        option.dataset.employmentLevelDetails = data[2];
+        option.dataset.daysPerMonthDetails = data[3];
+        option.dataset.hoursPerMonthDetails = data[4];
+        option.dataset.averageDetails = data[5];
+        option.dataset.periodicityDetails = data[6];
+        option.dataset.averageEventualDetails = data[7];
+        option.dataset.monthlyActivityDetails = data[8];
+        option.dataset.minimumTimeDetails = data[9];
+        option.dataset.averageTimeDetails = data[10];
+        option.dataset.maximumTimeDetails = data[11];
+        option.dataset.timePerHourDetails = data[12];
+        option.dataset.totalTimeDetails = data[13];
+        option.dataset.totalPeopleDetails = data[14];
+
+        inputDataList.appendChild(option);
+      })
+    }
+  }
+
+  function updateFormDetails(dtl){
+    const dtlFormInfo = document.getElementById('datalistDetailsOptions');
+
+    for (let i = 0; i < dtlFormInfo.options.length; i++){
+      if(dtlFormInfo.options[i].value === dtl.value){
+        document.getElementById('idDetails').value = dtlFormInfo.options[i].getAttribute('data-id-Details');
+        document.getElementById('descriptionDetails').value = dtlFormInfo.options[i].getAttribute('data-description-Details');
+        document.getElementById('employmentLevelDetails').value = dtlFormInfo.options[i].getAttribute('data-employment-Level-Details');
+        document.getElementById('daysPerMonthDetails').value = dtlFormInfo.options[i].getAttribute('data-days-Per-Month-Details');
+        document.getElementById('hoursPerMonthDetails').value = dtlFormInfo.options[i].getAttribute('data-hours-Per-Month-Details');
+        document.getElementById('averageDetails').value = dtlFormInfo.options[i].getAttribute('data-average-Details');
+        document.getElementById('periodicityDetails').value = dtlFormInfo.options[i].getAttribute('data-periodicity-Details');
+        document.getElementById('averageEventualDetails').value = dtlFormInfo.options[i].getAttribute('data-average-Eventual-Details');
+        document.getElementById('monthlyActivityDetails').value = dtlFormInfo.options[i].getAttribute('data-monthly-Activity-Details');
+        document.getElementById('timePerHourDetails').value = dtlFormInfo.options[i].getAttribute('data-time-Per-Hour-Details');
+        document.getElementById('totalTimeDetails').value = dtlFormInfo.options[i].getAttribute('data-total-Time-Details');
+        document.getElementById('minimumTimeDetails').value = dtlFormInfo.options[i].getAttribute('data-minimum-Time-Details');
+        document.getElementById('averageTimeDetails').value = dtlFormInfo.options[i].getAttribute('data-average-Time-Details');
+        document.getElementById('maximumTimeDetails').value = dtlFormInfo.options[i].getAttribute('data-maximum-Time-Details');
+        document.getElementById('totalPeopleDetails').value = dtlFormInfo.options[i].getAttribute('data-total-People-Details');
+      }
+    }
+  }
+
+  function searchModalDetails(){
+    const form = document.getElementById('formDetails');
+    const id= form.idDetails.value;
+    const searchButton = document.getElementById('searchDetails')
+
+    searchButton.dataset.identificador = id;
+    const searchModalDetails = bootstrap.Modal.getOrCreateInstance('#searchModalDetails')
+    searchModalDetails.show()
+  }
+
+</script>

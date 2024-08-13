@@ -1,0 +1,78 @@
+<section>
+  <div class="container">
+    <form class="row g-3 needs-validation" id="formRegister" novalidate>
+      
+      <div class="col-md-6" hidden>
+        <input placeholder="" type="text" class="form-control" id="identificador" name="identificador" value="" readonly/>
+      </div>
+      <div class="col-md-6">
+        <dt for="dependencia" class="form-label">Dependencia</dt>
+        <input placeholder="Escriba la dependencia" type="text" class="form-control" id="dependencia" name="dependencia" value="" required />
+      </div>
+      <div class="col-md-6">
+        <dt for="proceso" class="form-label">Proceso</dt>
+        <input placeholder="Nombre del proceso" type="text" class="form-control" id="proceso" name="proceso" value="" required />
+      </div>
+      <div class="col-md-12">
+        <dt for="proceso" class="form-label">Nombre del manual</dt>
+        <input placeholder="Escriba el nombre del manual" type="text" class="form-control" id="nombreManual" name="nombreManual" value="" required />
+      </div>
+      <div class="col-md-6">
+        <dt for="proceso" class="form-label">Procedimiento</dt>
+        <input placeholder="Escriba el procedimiento" type="text" class="form-control" id="procedimiento" name="procedimiento" value="" required />
+      </div>
+      <div class="col-md-6">
+        <dt for="nombreActividad" class="form-label">Etapa</dt>
+        <input placeholder="Escriba la etapa del procedimiento" class="form-control" id="etapa" name="etapa" value="" required />
+      </div>
+      <div class="col-md-12">
+        <dt for="descripcion" class="form-label">Actividad</dt>
+        <textarea class="form-control" id="descripcion" name="descripcion" placeholder="Descripción de la actividad" required></textarea>
+      </div>
+      <div class="col-md-6">
+        <dt for="responsableActividad" class="form-label">Responsable de la actividad</dt>
+        <input placeholder="Nombres y apellidos de responsable" type="text" class="form-control" id="responsableActividad" name="responsableActividad" value="" required />
+      </div>
+      <div class="col-md-4">
+        <dt for="nivelEmpleo" class="form-label">Nivel del empleo</dt>
+        <select class="form-select" aria-label="nivelEmpleo" name="nivelEmpleo" id="nivelEmpleo" required>
+                            <option selected disabled value="">Seleccione...</option>
+                            <option value="Administrativo">Administrativo</option>
+                            <option value="Asesor">Asesor</option>
+                            <option value="Auxiliar de Servicios Generales">Auxiliar de Servicios Generales</option>
+                            <option value="Directivo">Directivo</option>
+                            <option value="Ejecutivo">Ejecutivo</option>
+                            <option value="Operativo">Operativo</option>
+                            <option value="Profesional">Profesional</option>
+                            <option value="Técnico">Técnico</option>
+                        </select>
+
+      </div>
+      <div class="col-md-6">
+        <dt for="cargo" class="form-label">Cargo</dt>
+        <input placeholder="Nombre del cargo" type="text" class="form-control" id="cargo" name="cargo" value="" required />
+      </div>
+      <label for="labelInputs" class="text-center h4 mt-4">Jornada laboral</label>
+      <div class="d-flex flex-row justify-content-center text-center mt-3">
+        <div class="col-3 mx-4">
+          <dt for="horasDia" class="form-label">Horas al día</dt>
+          <input type="text" class="form-control" placeholder="Número en horas" id="horasDia" name="horasDia" value="" required />
+        </div>
+        <div class="col-3 mx-4">
+          <dt for="diasSemana" class="form-label">Días a la semana</dt>
+          <input type="text" class="form-control" placeholder="Número en días" id="diasSemana" name="diasSemana" value="" required />
+        </div>
+      </div>
+      <div class="col-md-12">
+        <dt for="observaciones" class="form-label">Observaciones</dt>
+        <textarea class="form-control" id="observaciones" name="observaciones" placeholder="Observaciones respecto a la actividad" required></textarea>
+      </div>
+    </form>
+    <div class="text-center mt-3">
+      <button class="btn btn-primary m-3" type="submit" onclick="searchModalRegister()" id="buscar" >Buscar</button>
+      <button class="btn btn-primary m-3" type="submit" onclick="validateFormRegister()" id="guardar">Guardar/Actualizar</button>
+      <button class="btn btn-primary m-3" type="submit" onclick="deleteDataModalRegister()" id="eliminar">Eliminar</button>
+      <button class="btn btn-primary m-3" type="submit" hidden>Actualizar</button>
+    </div>
+  </div>
+</section>
